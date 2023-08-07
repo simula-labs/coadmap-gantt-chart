@@ -4,8 +4,7 @@ import { Task } from "../../types/public-types";
 
 const localeDateStringCache = {};
 const toLocaleDateStringFactory =
-  (locale: string) =>
-  (date: Date, dateTimeOptions: Intl.DateTimeFormatOptions) => {
+  (locale: string) => (date: Date, dateTimeOptions: Intl.DateTimeFormatOptions) => {
     const key = date.toString();
     let lds = localeDateStringCache[key];
     if (!lds) {
@@ -31,19 +30,8 @@ export const TaskListTableDefault: React.FC<{
   selectedTaskId: string;
   setSelectedTask: (taskId: string) => void;
   onExpanderClick: (task: Task) => void;
-}> = ({
-  rowHeight,
-  rowWidth,
-  tasks,
-  fontFamily,
-  fontSize,
-  locale,
-  onExpanderClick,
-}) => {
-  const toLocaleDateString = useMemo(
-    () => toLocaleDateStringFactory(locale),
-    [locale]
-  );
+}> = ({ rowHeight, rowWidth, tasks, fontFamily, fontSize, locale, onExpanderClick }) => {
+  const toLocaleDateString = useMemo(() => toLocaleDateStringFactory(locale), [locale]);
 
   return (
     <div
@@ -53,7 +41,7 @@ export const TaskListTableDefault: React.FC<{
         fontSize: fontSize,
       }}
     >
-      {tasks.map(t => {
+      {tasks.map((t) => {
         let expanderSymbol = "";
         if (t.hideChildren === false) {
           expanderSymbol = "▼";
@@ -62,11 +50,7 @@ export const TaskListTableDefault: React.FC<{
         }
 
         return (
-          <div
-            className={styles.taskListTableRow}
-            style={{ height: rowHeight }}
-            key={`${t.id}row`}
-          >
+          <div className={styles.taskListTableRow} style={{ height: rowHeight }} key={`${t.id}row`}>
             <div
               className={styles.taskListCell}
               style={{
@@ -78,9 +62,7 @@ export const TaskListTableDefault: React.FC<{
               <div className={styles.taskListNameWrapper}>
                 <div
                   className={
-                    expanderSymbol
-                      ? styles.taskListExpander
-                      : styles.taskListEmptyExpander
+                    expanderSymbol ? styles.taskListExpander : styles.taskListEmptyExpander
                   }
                   onClick={() => onExpanderClick(t)}
                 >

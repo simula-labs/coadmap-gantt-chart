@@ -1,6 +1,6 @@
 import React from "react";
-import "gantt-task-react/dist/index.css";
-import { ViewMode } from "gantt-task-react";
+import "@simula-labs/coadmap-gantt-chart/dist/index.css";
+import { ViewMode } from "@simula-labs/coadmap-gantt-chart";
 type ViewSwitcherProps = {
   isChecked: boolean;
   onViewListChange: (isChecked: boolean) => void;

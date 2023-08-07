@@ -24,14 +24,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
   let y = 0;
   const gridRows: ReactChild[] = [];
   const rowLines: ReactChild[] = [
-    <line
-      key="RowLineFirst"
-      x="0"
-      y1={0}
-      x2={svgWidth}
-      y2={0}
-      className={styles.gridRowLine}
-    />,
+    <line key="RowLineFirst" x="0" y1={0} x2={svgWidth} y2={0} className={styles.gridRowLine} />,
   ];
   for (const task of tasks) {
     gridRows.push(
@@ -64,14 +57,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
   for (let i = 0; i < dates.length; i++) {
     const date = dates[i];
     ticks.push(
-      <line
-        key={date.getTime()}
-        x1={tickX}
-        y1={0}
-        x2={tickX}
-        y2={y}
-        className={styles.gridTick}
-      />
+      <line key={date.getTime()} x1={tickX} y1={0} x2={tickX} y2={y} className={styles.gridTick} />
     );
     if (
       (i + 1 !== dates.length &&
@@ -81,21 +67,10 @@ export const GridBody: React.FC<GridBodyProps> = ({
       (i !== 0 &&
         i + 1 === dates.length &&
         date.getTime() < now.getTime() &&
-        addToDate(
-          date,
-          date.getTime() - dates[i - 1].getTime(),
-          "millisecond"
-        ).getTime() >= now.getTime())
+        addToDate(date, date.getTime() - dates[i - 1].getTime(), "millisecond").getTime() >=
+          now.getTime())
     ) {
-      today = (
-        <rect
-          x={tickX}
-          y={0}
-          width={columnWidth}
-          height={y}
-          fill={todayColor}
-        />
-      );
+      today = <rect x={tickX} y={0} width={columnWidth} height={y} fill={todayColor} />;
     }
     // rtl for today
     if (
@@ -105,13 +80,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
       dates[i + 1].getTime() < now.getTime()
     ) {
       today = (
-        <rect
-          x={tickX + columnWidth}
-          y={0}
-          width={columnWidth}
-          height={y}
-          fill={todayColor}
-        />
+        <rect x={tickX + columnWidth} y={0} width={columnWidth} height={y} fill={todayColor} />
       );
     }
     tickX += columnWidth;

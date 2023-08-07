@@ -1,6 +1,6 @@
 {
-  "short_name": "gantt-task-react",
-  "name": "gantt-task-react",
+  "short_name": "coadmap-gantt-chart",
+  "name": "coadmap-gantt-chart",
   "icons": [
     {
       "src": "favicon.ico",

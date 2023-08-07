@@ -9,11 +9,5 @@ export const BarProgressHandle: React.FC<BarProgressHandleProps> = ({
   progressPoint,
   onMouseDown,
 }) => {
-  return (
-    <polygon
-      className={styles.barHandle}
-      points={progressPoint}
-      onMouseDown={onMouseDown}
-    />
-  );
+  return <polygon className={styles.barHandle} points={progressPoint} onMouseDown={onMouseDown} />;
 };

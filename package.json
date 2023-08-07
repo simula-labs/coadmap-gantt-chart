@@ -1,16 +1,16 @@
 {
-  "name": "gantt-task-react",
+  "name": "@simula-labs/coadmap-gantt-chart",
   "version": "0.3.9",
   "description": "Interactive Gantt Chart for React with TypeScript.",
-  "author": "MaTeMaTuK <maksym.vikarii@gmail.com>",
-  "homepage": "https://github.com/MaTeMaTuK/gantt-task-react",
+  "author": "mackeee-ornage <mackeee@simula-labs.com>",
+  "homepage": "https://github.com/simula-labs/coadmap-gantt-chart",
   "license": "MIT",
-  "repository": "MaTeMaTuK/gantt-task-react",
+  "repository": "simula-labs/coadmap-gantt-chart",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "keywords": [
     "react",
@@ -27,18 +27,82 @@
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
+    "prettier": "prettier --write src/**/*.{ts,tsx,js}",
+    "semantic-release": "semantic-release",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
     "test:lint": "eslint --ext .tsx src/**/*",
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
-    "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "test:watch": "react-scripts test --env=jsdom"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "release": {
+    "prepare": [
+      {
+        "path": "@semantic-release/exec",
+        "cmd": "sh ./setup_version.sh ${nextRelease.version}"
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "docs/CHANGELOG.md"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "sh ./setup_version.sh ${nextRelease.version}"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "docs/CHANGELOG.md"
+          ],
+          "message": "chore(release): set `package.json` to ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ],
+    "branches": ["main"]
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js}": [
+      "prettier --cache --write",
+      "eslint --cache --fix --max-warnings=-0"
+    ],
+    "**/*.scss": [
+      "stylelint --fix"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [
+        0
+      ]
+    }
   },
   "peerDependencies": {
     "react": "^18.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.1",
@@ -47,7 +111,17 @@
     "@types/react": "^18.0.5",
     "@types/react-dom": "^18.0.5",
     "cross-env": "^7.0.3",
+    "eslint": "8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.8.2",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "gh-pages": "^3.1.0",
+    "husky": "^8.0.0",
     "microbundle-crl": "^0.13.11",
     "mini-css-extract-plugin": "^2.5.1",
     "npm-run-all": "^4.1.5",
@@ -58,6 +132,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
+    "semantic-release": "^19.0.3",
+    "stylelint": "^14.10.0",
+    "stylelint-config-recommended-scss": "^7.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-scss": "^4.3.0",
     "typescript": "^4.7.4"
   },
   "files": [

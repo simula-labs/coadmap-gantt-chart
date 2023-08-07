@@ -23,16 +23,8 @@ export type TaskItemProps = {
   ) => any;
 };
 
-export const TaskItem: React.FC<TaskItemProps> = props => {
-  const {
-    task,
-    arrowIndent,
-    isDelete,
-    taskHeight,
-    isSelected,
-    rtl,
-    onEventStart,
-  } = {
+export const TaskItem: React.FC<TaskItemProps> = (props) => {
+  const { task, arrowIndent, isDelete, taskHeight, isSelected, rtl, onEventStart } = {
     ...props,
   };
   const textRef = useRef<SVGTextElement>(null);
@@ -70,10 +62,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
     }
     if (rtl && textRef.current) {
       return (
-        task.x1 -
-        textRef.current.getBBox().width -
-        arrowIndent * +hasChild -
-        arrowIndent * 0.2
+        task.x1 - textRef.current.getBBox().width - arrowIndent * +hasChild - arrowIndent * 0.2
       );
     } else {
       return task.x1 + width + arrowIndent * +hasChild + arrowIndent * 0.2;
@@ -82,7 +71,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
 
   return (
     <g
-      onKeyDown={e => {
+      onKeyDown={(e) => {
         switch (e.key) {
           case "Delete": {
             if (isDelete) onEventStart("delete", task, e);
@@ -91,16 +80,16 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
         }
         e.stopPropagation();
       }}
-      onMouseEnter={e => {
+      onMouseEnter={(e) => {
         onEventStart("mouseenter", task, e);
       }}
-      onMouseLeave={e => {
+      onMouseLeave={(e) => {
         onEventStart("mouseleave", task, e);
       }}
-      onDoubleClick={e => {
+      onDoubleClick={(e) => {
         onEventStart("dblclick", task, e);
       }}
-      onClick={e => {
+      onClick={(e) => {
         onEventStart("click", task, e);
       }}
       onFocus={() => {
@@ -111,11 +100,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       <text
         x={getX()}
         y={task.y + taskHeight * 0.5}
-        className={
-          isTextInside
-            ? style.barLabel
-            : style.barLabel && style.barLabelOutside
-        }
+        className={isTextInside ? style.barLabel : style.barLabel && style.barLabelOutside}
         ref={textRef}
       >
         {task.name}

@@ -1,8 +1,8 @@
 import React from "react";
-import { Task, ViewMode, Gantt } from "gantt-task-react";
+import { Task, ViewMode, Gantt } from "@simula-labs/coadmap-gantt-chart";
 import { ViewSwitcher } from "./components/view-switcher";
 import { getStartEndDateForProject, initTasks } from "./helper";
-import "gantt-task-react/dist/index.css";
+import "@simula-labs/coadmap-gantt-chart/dist/index.css";
 
 // Init
 const App = () => {

@@ -63,12 +63,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         const tooltipLeftmostPoint = tooltipWidth + newRelatedX;
         const fullChartWidth = taskListWidth + svgContainerWidth;
         if (tooltipLeftmostPoint > fullChartWidth) {
-          newRelatedX =
-            task.x1 +
-            taskListWidth -
-            arrowIndent * 1.5 -
-            scrollX -
-            tooltipWidth;
+          newRelatedX = task.x1 + taskListWidth - arrowIndent * 1.5 - scrollX - tooltipWidth;
         }
         if (newRelatedX < taskListWidth) {
           newRelatedX = svgContainerWidth + taskListWidth - tooltipWidth;
@@ -100,11 +95,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   return (
     <div
       ref={tooltipRef}
-      className={
-        relatedX
-          ? styles.tooltipDetailsContainer
-          : styles.tooltipDetailsContainerHidden
-      }
+      className={relatedX ? styles.tooltipDetailsContainer : styles.tooltipDetailsContainerHidden}
       style={{ left: relatedX, top: relatedY }}
     >
       <TooltipContent task={task} fontSize={fontSize} fontFamily={fontFamily} />
@@ -123,9 +114,7 @@ export const StandardTooltipContent: React.FC<{
   };
   return (
     <div className={styles.tooltipDefaultContainer} style={style}>
-      <b style={{ fontSize: fontSize + 6 }}>{`${
-        task.name
-      }: ${task.start.getDate()}-${
+      <b style={{ fontSize: fontSize + 6 }}>{`${task.name}: ${task.start.getDate()}-${
         task.start.getMonth() + 1
       }-${task.start.getFullYear()} - ${task.end.getDate()}-${
         task.end.getMonth() + 1

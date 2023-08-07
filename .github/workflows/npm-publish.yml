@@ -1,8 +1,11 @@
 name: publish
 
+env:
+  CI: true
 on:
-  release:
-    types: [published, edited]
+  push:
+    branches:
+      - main
 
 jobs:
   release:
@@ -10,22 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Begin CI...
+      - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Use Node 16
-        uses: actions/setup-node@v1
         with:
-          node-version: 16.x
-          registry-url: https://registry.npmjs.org
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@simula-labs'
 
-      - name: NPM Publish
+      - name: ci and build
         run: |
-          if [ -e package-lock.json ]; then
           npm ci
-          else
-          npm i
-          fi
-          npm publish --access public
+          npm run build
+
+      - name: Publish as github package
+        run: npx semantic-release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GH_DEVELOPER_PAT }}
+          NPM_TOKEN: ${{ secrets.GH_DEVELOPER_PAT }}

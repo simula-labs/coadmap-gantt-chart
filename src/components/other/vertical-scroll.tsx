@@ -8,14 +8,7 @@ export const VerticalScroll: React.FC<{
   headerHeight: number;
   rtl: boolean;
   onScroll: (event: SyntheticEvent<HTMLDivElement>) => void;
-}> = ({
-  scroll,
-  ganttHeight,
-  ganttFullHeight,
-  headerHeight,
-  rtl,
-  onScroll,
-}) => {
+}> = ({ scroll, ganttHeight, ganttFullHeight, headerHeight, rtl, onScroll }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
