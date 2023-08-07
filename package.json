@@ -1,6 +1,5 @@
 {
   "name": "@simula-labs/coadmap-gantt-chart",
-  "version": "0.3.9",
   "description": "Interactive Gantt Chart for React with TypeScript.",
   "author": "mackeee-ornage <mackeee@simula-labs.com>",
   "homepage": "https://github.com/simula-labs/coadmap-gantt-chart",
