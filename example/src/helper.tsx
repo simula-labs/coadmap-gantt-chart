@@ -1,4 +1,4 @@
-import { Task } from "../../dist/types/public-types";
+import { Task } from "@simula-labs/coadmap-gantt-chart/dist/types/public-types";
 
 export function initTasks() {
   const currentDate = new Date();
@@ -15,13 +15,7 @@ export function initTasks() {
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
-      end: new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        2,
-        12,
-        28
-      ),
+      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2, 12, 28),
       name: "Idea",
       id: "Task 0",
       progress: 45,
@@ -98,18 +92,17 @@ export function initTasks() {
 }
 
 export function getStartEndDateForProject(tasks: Task[], projectId: string) {
-  const projectTasks = tasks.filter(t => t.project === projectId);
+  const projectTasks = tasks.filter((t) => t.project === projectId);
   let start = projectTasks[0].start;
   let end = projectTasks[0].end;
 
-  for (let i = 0; i < projectTasks.length; i++) {
-    const task = projectTasks[i];
+  projectTasks.forEach((task) => {
     if (start.getTime() > task.start.getTime()) {
       start = task.start;
     }
     if (end.getTime() < task.end.getTime()) {
       end = task.end;
     }
-  }
+  });
   return [start, end];
 }
