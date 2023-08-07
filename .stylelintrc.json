@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "stylelint-config-recommended-scss"
+  ],
+  "customSyntax": "postcss-scss",
+  "plugins": [
+    "stylelint-scss",
+    "stylelint-order"
+  ],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "selector-pseudo-class-no-unknown": [true, {
+      "ignorePseudoClasses": ["export"]
+    }],
+    "property-no-unknown": [true, {
+      "ignoreSelectors": [":export"]
+    }],
+    "order/properties-alphabetical-order": true,
+    "no-descending-specificity": null,
+    "scss/no-global-function-names": null
+  },
+  "ignoreFiles": ["**/node_modules/**"]
+}
