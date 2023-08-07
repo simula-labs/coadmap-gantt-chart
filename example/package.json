@@ -1,5 +1,5 @@
 {
-  "name": "gantt-task-react-example",
+  "name": "coadmap-gantt-chart-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -17,7 +17,7 @@
     "@types/node": "file:../node_modules/@types/node",
     "@types/react": "file:../node_modules/@types/react",
     "@types/react-dom": "file:../node_modules/@types/react-dom",
-    "gantt-task-react": "file:..",
+    "@simula-labs/coadmap-gantt-chart": "file:..",
     "postcss-preset-env": "file:../node_modules/postcss-preset-env",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
