@@ -189,9 +189,8 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
       if (action === "select") {
         setSelectedTask(task.id);
       }
-    }
-    // Keyboard events
-    else if (isKeyboardEvent(event)) {
+    } else if (isKeyboardEvent(event)) {
+      // Keyboard events
       if (action === "delete") {
         if (onDelete) {
           try {
@@ -204,9 +203,8 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
           }
         }
       }
-    }
-    // Mouse Events
-    else if (action === "mouseenter") {
+    } else if (action === "mouseenter") {
+      // Mouse Events
       if (!ganttEvent.action) {
         setGanttEvent({
           action,
@@ -219,13 +217,13 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
         setGanttEvent({ action: "" });
       }
     } else if (action === "dblclick") {
-      !!onDoubleClick && onDoubleClick(task);
+      onDoubleClick && onDoubleClick(task);
     } else if (action === "click") {
-      !!onClick && onClick(task);
-    }
-    // Change task event start
-    else if (action === "move") {
+      onClick && onClick(task);
+    } else if (action === "move") {
+      // Change task event start
       if (!svg?.current || !point) return;
+
       point.x = event.clientX;
       const cursor = point.matrixTransform(svg.current.getScreenCTM()?.inverse());
       setInitEventX1Delta(cursor.x - task.x1);

@@ -29,6 +29,7 @@ export const BarDateHandle: React.FC<BarDateHandleProps> = ({
       ry={barCornerRadius}
       rx={barCornerRadius}
       onMouseDown={onMouseDown}
+      onClick={(e) => e.stopPropagation()}
     />
   );
 };
