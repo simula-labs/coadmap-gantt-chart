@@ -25,9 +25,7 @@ export const BarDateHandle: React.FC<BarDateHandleProps> = ({
       y={y}
       width={width}
       height={height}
-      className={
-        className ? `${styles.barHandle} ${className}` : styles.barHandle
-      }
+      className={className ? `${styles.barHandle} ${className}` : styles.barHandle}
       ry={barCornerRadius}
       rx={barCornerRadius}
       onMouseDown={onMouseDown}

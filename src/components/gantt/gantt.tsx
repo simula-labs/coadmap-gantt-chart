@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  SyntheticEvent,
-  useRef,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { useState, SyntheticEvent, useRef, useEffect, useMemo } from "react";
 import { ViewMode, GanttProps, Task } from "../../types/public-types";
 import { GridProps } from "../grid/grid";
 import { ganttDateRange, seedDates } from "../../helpers/date-helper";
@@ -72,9 +66,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     const [startDate, endDate] = ganttDateRange(tasks, viewMode, preStepsCount);
     return { viewMode, dates: seedDates(startDate, endDate, viewMode) };
   });
-  const [currentViewDate, setCurrentViewDate] = useState<Date | undefined>(
-    undefined
-  );
+  const [currentViewDate, setCurrentViewDate] = useState<Date | undefined>(undefined);
 
   const [taskListWidth, setTaskListWidth] = useState(0);
   const [svgContainerWidth, setSvgContainerWidth] = useState(0);
@@ -83,10 +75,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   const [ganttEvent, setGanttEvent] = useState<GanttEvent>({
     action: "",
   });
-  const taskHeight = useMemo(
-    () => (rowHeight * barFill) / 100,
-    [rowHeight, barFill]
-  );
+  const taskHeight = useMemo(() => (rowHeight * barFill) / 100, [rowHeight, barFill]);
 
   const [selectedTask, setSelectedTask] = useState<BarTask>();
   const [failedTask, setFailedTask] = useState<BarTask | null>(null);
@@ -107,11 +96,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
       filteredTasks = tasks;
     }
     filteredTasks = filteredTasks.sort(sortTasks);
-    const [startDate, endDate] = ganttDateRange(
-      filteredTasks,
-      viewMode,
-      preStepsCount
-    );
+    const [startDate, endDate] = ganttDateRange(filteredTasks, viewMode, preStepsCount);
     let newDates = seedDates(startDate, endDate, viewMode);
     if (rtl) {
       newDates = newDates.reverse();
@@ -200,14 +185,14 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     if (changedTask) {
       if (action === "delete") {
         setGanttEvent({ action: "" });
-        setBarTasks(barTasks.filter(t => t.id !== changedTask.id));
+        setBarTasks(barTasks.filter((t) => t.id !== changedTask.id));
       } else if (
         action === "move" ||
         action === "end" ||
         action === "start" ||
         action === "progress"
       ) {
-        const prevStateTask = barTasks.find(t => t.id === changedTask.id);
+        const prevStateTask = barTasks.find((t) => t.id === changedTask.id);
         if (
           prevStateTask &&
           (prevStateTask.start.getTime() !== changedTask.start.getTime() ||
@@ -215,9 +200,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
             prevStateTask.progress !== changedTask.progress)
         ) {
           // actions for change
-          const newTaskList = barTasks.map(t =>
-            t.id === changedTask.id ? changedTask : t
-          );
+          const newTaskList = barTasks.map((t) => (t.id === changedTask.id ? changedTask : t));
           setBarTasks(newTaskList);
         }
       }
@@ -226,7 +209,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
 
   useEffect(() => {
     if (failedTask) {
-      setBarTasks(barTasks.map(t => (t.id !== failedTask.id ? t : failedTask)));
+      setBarTasks(barTasks.map((t) => (t.id !== failedTask.id ? t : failedTask)));
       setFailedTask(null);
     }
   }, [failedTask, barTasks]);
@@ -290,15 +273,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     return () => {
       wrapperRef.current?.removeEventListener("wheel", handleWheel);
     };
-  }, [
-    wrapperRef,
-    scrollY,
-    scrollX,
-    ganttHeight,
-    svgWidth,
-    rtl,
-    ganttFullHeight,
-  ]);
+  }, [wrapperRef, scrollY, scrollX, ganttHeight, svgWidth, rtl, ganttFullHeight]);
 
   const handleScrollY = (event: SyntheticEvent<HTMLDivElement>) => {
     if (scrollY !== event.currentTarget.scrollTop && !ignoreScrollEvent) {
@@ -368,10 +343,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
    * Task select event
    */
   const handleSelectedTask = (taskId: string) => {
-    const newSelectedTask = barTasks.find(t => t.id === taskId);
-    const oldSelectedTask = barTasks.find(
-      t => !!selectedTask && t.id === selectedTask.id
-    );
+    const newSelectedTask = barTasks.find((t) => t.id === taskId);
+    const oldSelectedTask = barTasks.find((t) => !!selectedTask && t.id === selectedTask.id);
     if (onSelect) {
       if (oldSelectedTask) {
         onSelect(oldSelectedTask, false);
@@ -451,12 +424,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   };
   return (
     <div>
-      <div
-        className={styles.wrapper}
-        onKeyDown={handleKeyDown}
-        tabIndex={0}
-        ref={wrapperRef}
-      >
+      <div className={styles.wrapper} onKeyDown={handleKeyDown} tabIndex={0} ref={wrapperRef}>
         {listCellWidth && <TaskList {...tableProps} />}
         <TaskGantt
           gridProps={gridProps}

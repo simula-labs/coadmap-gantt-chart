@@ -1,31 +1,64 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "extends": ["react-app", "react-app/jest"],
-  "plugins": ["@typescript-eslint"],
   "env": {
-    "node": true
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest/globals": true
   },
+  "globals": {
+    "_": "readonly",
+    "JSX": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb-typescript/base",
+    "prettier",
+    "plugin:react-hooks/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
     "ecmaFeatures": {
-      "legacyDecorators": true,
       "jsx": true
-    }
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
-  "settings": {
-    "react": {
-      "version": "16"
-    }
-  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "jest"
+  ],
   "rules": {
-    "space-before-function-paren": 0,
-    "react/prop-types": 0,
-    "react/jsx-handler-names": 0,
-    "react/jsx-fragments": 0,
-    "react/no-unused-prop-types": 0,
-    "import/export": 0,
-    "no-unused-vars": "off",
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "import/prefer-default-export": ["off"],
+    "import/extensions": ["off"],
+    "import/no-unresolved": ["off"],
+    "react/jsx-props-no-spreading": ["off"],
+    "react/function-component-definition": ["off"],
+    "react/button-has-type": ["off"],
+    "import/no-extraneous-dependencies": ["off"],
+    "arrow-body-style": ["off"],
+    "react/react-in-jsx-scope": ["off"],
+    "react/require-default-props": ["off"],
+    "no-shadow": ["off"],
+    "no-unused-vars": ["off"],
+    "jsx-a11y/no-static-element-interactions": ["off"],
+    "jsx-a11y/label-has-associated-control": ["off"],
+    "jsx-a11y/click-events-have-key-events": ["off"],
+    "jsx-a11y/anchor-has-content": ["off"],
+    "jsx-a11y/no-noninteractive-element-interactions": ["off"],
+    "jsx-a11y/anchor-is-valid": ["off"],
+    "react/prop-types": ["off"],
+    "import/export": ["off"],
+    "@typescript-eslint/no-shadow": ["off"],
+    "react/jsx-no-constructed-context-values": ["off"],
+    "quotes": ["error", "double"],
+    "react/jsx-key": "warn",
+    "default-case": "warn",
+    "react/jsx-fragments": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "react/no-array-index-key": ["off"]
   }
 }

@@ -2,14 +2,7 @@ import { Task, ViewMode } from "../types/public-types";
 import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 import DateTimeFormat = Intl.DateTimeFormat;
 
-type DateHelperScales =
-  | "year"
-  | "month"
-  | "day"
-  | "hour"
-  | "minute"
-  | "second"
-  | "millisecond";
+type DateHelperScales = "year" | "month" | "day" | "hour" | "minute" | "second" | "millisecond";
 
 const intlDTCache = {};
 export const getCachedDateTimeFormat = (
@@ -25,11 +18,7 @@ export const getCachedDateTimeFormat = (
   return dtf;
 };
 
-export const addToDate = (
-  date: Date,
-  quantity: number,
-  scale: DateHelperScales
-) => {
+export const addToDate = (date: Date, quantity: number, scale: DateHelperScales) => {
   const newDate = new Date(
     date.getFullYear() + (scale === "year" ? quantity : 0),
     date.getMonth() + (scale === "month" ? quantity : 0),
@@ -43,15 +32,7 @@ export const addToDate = (
 };
 
 export const startOfDate = (date: Date, scale: DateHelperScales) => {
-  const scores = [
-    "millisecond",
-    "second",
-    "minute",
-    "hour",
-    "day",
-    "month",
-    "year",
-  ];
+  const scores = ["millisecond", "second", "minute", "hour", "day", "month", "year"];
 
   const shouldReset = (_scale: DateHelperScales) => {
     const maxScore = scores.indexOf(scale);
@@ -69,11 +50,7 @@ export const startOfDate = (date: Date, scale: DateHelperScales) => {
   return newDate;
 };
 
-export const ganttDateRange = (
-  tasks: Task[],
-  viewMode: ViewMode,
-  preStepsCount: number
-) => {
+export const ganttDateRange = (tasks: Task[], viewMode: ViewMode, preStepsCount: number) => {
   let newStartDate: Date = tasks[0].start;
   let newEndDate: Date = tasks[0].start;
   for (const task of tasks) {
@@ -105,11 +82,7 @@ export const ganttDateRange = (
       break;
     case ViewMode.Week:
       newStartDate = startOfDate(newStartDate, "day");
-      newStartDate = addToDate(
-        getMonday(newStartDate),
-        -7 * preStepsCount,
-        "day"
-      );
+      newStartDate = addToDate(getMonday(newStartDate), -7 * preStepsCount, "day");
       newEndDate = startOfDate(newEndDate, "day");
       newEndDate = addToDate(newEndDate, 1.5, "month");
       break;
@@ -141,11 +114,7 @@ export const ganttDateRange = (
   return [newStartDate, newEndDate];
 };
 
-export const seedDates = (
-  startDate: Date,
-  endDate: Date,
-  viewMode: ViewMode
-) => {
+export const seedDates = (startDate: Date, endDate: Date, viewMode: ViewMode) => {
   let currentDate: Date = new Date(startDate);
   const dates: Date[] = [currentDate];
   while (currentDate < endDate) {
@@ -184,10 +153,7 @@ export const getLocaleMonth = (date: Date, locale: string) => {
   let bottomValue = getCachedDateTimeFormat(locale, {
     month: "long",
   }).format(date);
-  bottomValue = bottomValue.replace(
-    bottomValue[0],
-    bottomValue[0].toLocaleUpperCase()
-  );
+  bottomValue = bottomValue.replace(bottomValue[0], bottomValue[0].toLocaleUpperCase());
   return bottomValue;
 };
 
@@ -199,10 +165,7 @@ export const getLocalDayOfWeek = (
   let bottomValue = getCachedDateTimeFormat(locale, {
     weekday: format,
   }).format(date);
-  bottomValue = bottomValue.replace(
-    bottomValue[0],
-    bottomValue[0].toLocaleUpperCase()
-  );
+  bottomValue = bottomValue.replace(bottomValue[0], bottomValue[0].toLocaleUpperCase());
   return bottomValue;
 };
 
@@ -225,9 +188,7 @@ export const getWeekNumberISO8601 = (date: Date) => {
   if (tmpDate.getDay() !== 4) {
     tmpDate.setMonth(0, 1 + ((4 - tmpDate.getDay() + 7) % 7));
   }
-  const weekNumber = (
-    1 + Math.ceil((firstThursday - tmpDate.valueOf()) / 604800000)
-  ).toString();
+  const weekNumber = (1 + Math.ceil((firstThursday - tmpDate.valueOf()) / 604800000)).toString();
 
   if (weekNumber.length === 1) {
     return `0${weekNumber}`;

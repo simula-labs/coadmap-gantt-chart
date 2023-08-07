@@ -49,10 +49,7 @@ export const Calendar: React.FC<CalendarProps> = ({
           {bottomValue}
         </text>
       );
-      if (
-        i === 0 ||
-        date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()
-      ) {
+      if (i === 0 || date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()) {
         const topValue = date.getFullYear().toString();
         let xText: number;
         if (rtl) {
@@ -94,10 +91,7 @@ export const Calendar: React.FC<CalendarProps> = ({
           {quarter}
         </text>
       );
-      if (
-        i === 0 ||
-        date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()
-      ) {
+      if (i === 0 || date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()) {
         const topValue = date.getFullYear().toString();
         let xText: number;
         if (rtl) {
@@ -138,10 +132,7 @@ export const Calendar: React.FC<CalendarProps> = ({
           {bottomValue}
         </text>
       );
-      if (
-        i === 0 ||
-        date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()
-      ) {
+      if (i === 0 || date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()) {
         const topValue = date.getFullYear().toString();
         let xText: number;
         if (rtl) {
@@ -235,10 +226,7 @@ export const Calendar: React.FC<CalendarProps> = ({
           {bottomValue}
         </text>
       );
-      if (
-        i + 1 !== dates.length &&
-        date.getMonth() !== dates[i + 1].getMonth()
-      ) {
+      if (i + 1 !== dates.length && date.getMonth() !== dates[i + 1].getMonth()) {
         const topValue = getLocaleMonth(date, locale);
 
         topValues.push(
@@ -250,9 +238,7 @@ export const Calendar: React.FC<CalendarProps> = ({
             y2Line={topDefaultHeight}
             xText={
               columnWidth * (i + 1) -
-              getDaysInMonth(date.getMonth(), date.getFullYear()) *
-                columnWidth *
-                0.5
+              getDaysInMonth(date.getMonth(), date.getFullYear()) * columnWidth * 0.5
             }
             yText={topDefaultHeight * 0.9}
           />
