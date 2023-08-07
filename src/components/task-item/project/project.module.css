@@ -3,6 +3,18 @@
   outline: none;
 }
 
+.projectWrapper:hover .projectDateHandle {
+  visibility: visible;
+  opacity: 1;
+}
+
+.projectDateHandle {
+  fill: #ddd;
+  cursor: ew-resize;
+  opacity: 0;
+  visibility: hidden;
+}
+
 .projectBackground {
   user-select: none;
   opacity: 0.6;
