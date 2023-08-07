@@ -1,8 +1,14 @@
 import React from "react";
 import { TaskItemProps } from "../task-item";
 import styles from "./project.module.css";
+import { BarDateHandle } from "../bar/bar-date-handle";
 
-export const Project: React.FC<TaskItemProps> = ({ task, isSelected }) => {
+export const Project: React.FC<TaskItemProps> = ({
+  task,
+  isSelected,
+  isDateChangeable,
+  onEventStart,
+}) => {
   const barColor = isSelected
     ? task.styles.backgroundSelectedColor
     : task.styles.backgroundColor;
@@ -27,48 +33,86 @@ export const Project: React.FC<TaskItemProps> = ({ task, isSelected }) => {
     task.x2 - 15,
     task.y + task.height / 2 - 1,
   ].join(",");
+  const handleHeight = task.height - 2;
 
   return (
     <g tabIndex={0} className={styles.projectWrapper}>
-      <rect
-        fill={barColor}
-        x={task.x1}
-        width={projectWith}
-        y={task.y}
-        height={task.height}
-        rx={task.barCornerRadius}
-        ry={task.barCornerRadius}
-        className={styles.projectBackground}
-      />
-      <rect
-        x={task.progressX}
-        width={task.progressWidth}
-        y={task.y}
-        height={task.height}
-        ry={task.barCornerRadius}
-        rx={task.barCornerRadius}
-        fill={processColor}
-      />
-      <rect
-        fill={barColor}
-        x={task.x1}
-        width={projectWith}
-        y={task.y}
-        height={task.height / 2}
-        rx={task.barCornerRadius}
-        ry={task.barCornerRadius}
-        className={styles.projectTop}
-      />
-      <polygon
-        className={styles.projectTop}
-        points={projectLeftTriangle}
-        fill={barColor}
-      />
-      <polygon
-        className={styles.projectTop}
-        points={projectRightTriangle}
-        fill={barColor}
-      />
+      <g
+        onMouseDown={e => {
+          isDateChangeable && onEventStart("move", task, e);
+        }}
+      >
+        <rect
+          fill={barColor}
+          x={task.x1}
+          width={projectWith}
+          y={task.y}
+          height={task.height}
+          rx={task.barCornerRadius}
+          ry={task.barCornerRadius}
+          className={styles.projectBackground}
+        />
+        <rect
+          x={task.progressX}
+          width={task.progressWidth}
+          y={task.y}
+          height={task.height}
+          ry={task.barCornerRadius}
+          rx={task.barCornerRadius}
+          fill={processColor}
+        />
+        <rect
+          fill={barColor}
+          x={task.x1}
+          width={projectWith}
+          y={task.y}
+          height={task.height / 2}
+          rx={task.barCornerRadius}
+          ry={task.barCornerRadius}
+          className={styles.projectTop}
+        />
+        <polygon
+          className={styles.projectTop}
+          points={projectLeftTriangle}
+          fill={barColor}
+        />
+        <polygon
+          className={styles.projectTop}
+          points={projectRightTriangle}
+          fill={barColor}
+        />
+      </g>
+
+      <g className="handleGroup">
+        {isDateChangeable && (
+          <g>
+            {/* left */}
+            <BarDateHandle
+              x={task.x1 + 1}
+              y={task.y + 1}
+              width={task.handleWidth}
+              height={handleHeight}
+              barCornerRadius={task.barCornerRadius}
+              onMouseDown={e => {
+                onEventStart("start", task, e);
+              }}
+              className={styles.projectDateHandle}
+            />
+            {/* right */}
+            <BarDateHandle
+              x={task.x2 - task.handleWidth - 1}
+              y={task.y + 1}
+              width={task.handleWidth}
+              height={handleHeight}
+              barCornerRadius={task.barCornerRadius}
+              onMouseDown={e => {
+                onEventStart("end", task, e);
+              }}
+              className={styles.projectDateHandle}
+            />
+          </g>
+        )}
+      </g>
     </g>
   );
 };
