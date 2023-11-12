@@ -3,6 +3,7 @@ import { BarTask } from "../../types/bar-task";
 import { Task } from "../../types/public-types";
 
 export type TaskListProps = {
+  className?: string;
   headerHeight: number;
   rowWidth: string;
   fontFamily: string;
@@ -53,6 +54,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   horizontalContainerClass,
   TaskListHeader,
   TaskListTable,
+  className,
 }) => {
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -81,7 +83,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   };
 
   return (
-    <div ref={taskListRef}>
+    <div ref={taskListRef} className={className}>
       <TaskListHeader {...headerProps} />
       <div
         ref={horizontalContainerRef}
